@@ -11,6 +11,8 @@ interface ServiceItem {
   icon?: string
 }
 
+export const revalidate = 60;
+
 export default async function AboutPage() {
   const aboutData = await client.fetch(aboutQuery);
   const servicesData = await client.fetch(servicesQuery);

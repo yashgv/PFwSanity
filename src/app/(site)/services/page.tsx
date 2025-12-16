@@ -1,4 +1,7 @@
 import { client } from "@/sanity/lib/client"
+
+export const revalidate = 60;
+
 import { servicesQuery } from "@/sanity/lib/queries"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"

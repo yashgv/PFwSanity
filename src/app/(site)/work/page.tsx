@@ -1,4 +1,7 @@
 import { client } from "@/sanity/lib/client"
+
+export const revalidate = 60;
+
 import { workQuery } from "@/sanity/lib/queries"
 import { urlFor as urlForImage } from '@/sanity/lib/image'
 import { Badge } from "@/components/ui/badge"

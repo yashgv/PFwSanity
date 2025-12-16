@@ -1,4 +1,7 @@
 import { client } from "@/sanity/lib/client"
+
+export const revalidate = 60;
+
 import { contactQuery, siteSettingsQuery } from "@/sanity/lib/queries"
 import { Button } from "@/components/ui/button"
 import { Mail, Calendar, Github, Linkedin, Twitter } from "lucide-react"
