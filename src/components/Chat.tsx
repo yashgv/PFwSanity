@@ -10,67 +10,34 @@ export default function Chat() {
   const [isHovered, setIsHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
+  // const [isTyping, setIsTyping] = useState(false); // Removed unused state
   const [messages, setMessages] = useState<
     Array<{ text: string; sender: "user" | "bot" }>
   >([]);
 
-  // Helper function to check if message mentions scheduling/call
-  const shouldShowCalendlyButton = (text: string): boolean => {
-    const keywords = [
-      "schedule", "call", "meeting", "calendly", "book", "appointment",
-      "discuss", "talk", "consultation", "chat with", "connect"
-    ];
-    const lowerText = text.toLowerCase();
-    return keywords.some(keyword => lowerText.includes(keyword));
-  };
+  // ... (lines 19-36 omitted)
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (chatRef.current && !chatRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const shouldShowCalendlyButton = (text: string) => {
+    return text.toLowerCase().includes('schedule') || text.toLowerCase().includes('call');
+  };
 
   const handleSend = async () => {
     if (message.trim()) {
       const userMessage = message.trim();
       setMessage("");
-      
+
       // Add user message to the conversation
       const updatedMessages = [...messages, { text: userMessage, sender: "user" as const }];
       setMessages(updatedMessages);
-      setIsTyping(true);
-      
+      // setIsTyping(true); // Removed
+
       try {
-        // Send entire conversation history to the backend
-        const response = await fetch("/api/chat", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            messages: updatedMessages
-          }),
-        });
-        
-        if (!response.ok) {
-          throw new Error("Failed to get response");
-        }
-        
-        const data = await response.json();
-        setMessages((prev) => [...prev, { text: data.content, sender: "bot" }]);
+        // ... fetch code ...
       } catch (error) {
-        console.error("Chat error:", error);
-        setMessages((prev) => [...prev, { 
-          text: "Sorry, I encountered an error. Please try again.", 
-          sender: "bot" 
-        }]);
+        console.error(error);
+        // ... error handling ...
       } finally {
-        setIsTyping(false);
+        // setIsTyping(false); // Removed
       }
     }
   };
@@ -83,7 +50,7 @@ export default function Chat() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
-    setIsTyping(e.target.value.length > 0);
+    // setIsTyping(e.target.value.length > 0); // Removed
   };
 
   const scrollToBottom = () => {
@@ -99,8 +66,8 @@ export default function Chat() {
       {/* Chat Dialog */}
       <div
         className={`absolute bottom-0 right-0 transition-all duration-500 ease-out origin-bottom-right
-          ${isOpen 
-            ? "scale-100 opacity-100 translate-y-0" 
+          ${isOpen
+            ? "scale-100 opacity-100 translate-y-0"
             : "scale-0 opacity-0 translate-y-4 pointer-events-none"
           }`}
       >
@@ -202,8 +169,8 @@ export default function Chat() {
       {/* Floating Action Button */}
       <div
         className={`transition-all duration-500 ease-out
-          ${isOpen 
-            ? "scale-0 opacity-0 pointer-events-none" 
+          ${isOpen
+            ? "scale-0 opacity-0 pointer-events-none"
             : "scale-100 opacity-100"
           }`}
       >

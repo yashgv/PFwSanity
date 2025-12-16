@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 
 interface HeroProps {
@@ -27,10 +28,11 @@ export default function Hero({ data }: HeroProps) {
         <div className="mt-[-3.5rem] min-h-screen bg-white dark:bg-gray-900">
             <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <img
+                    <Image
                         src="/wordcloud.png"
                         alt="Word Cloud"
-                        className="absolute inset-0 w-full h-full object-cover opacity-12 dark:opacity-10"
+                        fill
+                        className="object-cover opacity-12 dark:opacity-10"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white to-transparent dark:via-gray-900"></div>
                 </div>

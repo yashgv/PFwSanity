@@ -2,16 +2,24 @@ import { client } from "@/sanity/lib/client"
 import { experienceQuery } from "@/sanity/lib/queries"
 import { Badge } from "@/components/ui/badge"
 
-function formatDate(dateString: string | undefined, current: boolean) {
-  if (current) return 'Present'
-  if (!dateString) return ''
-  return new Date(dateString).getFullYear().toString()
-}
+
 
 function getDuration(start: string, end: string, current: boolean) {
   const startDate = new Date(start).toLocaleDateString("en-US", { year: 'numeric', month: 'short' })
   const endDate = current ? 'Present' : new Date(end).toLocaleDateString("en-US", { year: 'numeric', month: 'short' })
   return `${startDate} - ${endDate}`
+}
+
+interface ExperienceItem {
+  title: string
+  company: string
+  duration: string
+  location: string
+  description: string
+  technologies: string[]
+  startDate: string
+  endDate: string
+  current: boolean
 }
 
 export default async function ExperiencePage() {
@@ -30,7 +38,7 @@ export default async function ExperiencePage() {
         </div>
 
         <div className="space-y-8">
-          {experience?.map((exp: any, i: number) => (
+          {experience?.map((exp: ExperienceItem, i: number) => (
             <div key={i} className="bg-gray-50 border border-gray-200 rounded-xl p-8">
               <div className="flex justify-between items-start mb-4">
                 <div>

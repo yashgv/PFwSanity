@@ -6,6 +6,7 @@ import { Poppins } from 'next/font/google'
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '700'] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://yashvarma.in'),
   title: 'Yash Varma - Full Stack & AI Engineer',
   description: 'The official portfolio for Yash Varma, a full-stack AI engineer specializing in building intelligent applications. Explore projects, skills, and experience.',
   keywords: ['Yash Varma', 'Yash', 'Varma', 'yashvarma', 'yashhvarma_', 'yashhvarma__', 'yashvarma_in', 'yashvarma.in', 'yashgv', 'full stack developer', 'AI engineer', 'machine learning engineer', 'software engineer', 'portfolio', 'projects'],

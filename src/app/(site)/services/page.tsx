@@ -5,6 +5,13 @@ import { Button } from "@/components/ui/button"
 import { CheckCircle, ArrowRight } from "lucide-react"
 import Link from 'next/link'
 
+interface ServiceItem {
+  title: string
+  description: string
+  features: string[]
+  popular?: boolean
+}
+
 export default async function ServicesPage() {
   const services = await client.fetch(servicesQuery)
 
@@ -21,7 +28,7 @@ export default async function ServicesPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {services?.map((service: any, i: number) => (
+          {services?.map((service: ServiceItem, i: number) => (
             <div key={i} className={`relative bg-white rounded-xl border p-6 flex flex-col ${service.popular ? 'border-gray-900 shadow-sm' : 'border-gray-200'
               }`}>
               {service.popular && (
@@ -46,8 +53,8 @@ export default async function ServicesPage() {
 
               <Link href="/contact">
                 <Button className={`cursor-pointer flex items-center w-full text-sm font-medium ${service.popular
-                    ? 'bg-gray-900 hover:bg-gray-800 text-white'
-                    : 'border border-gray-300 bg-white text-gray-900 hover:bg-gray-50'
+                  ? 'bg-gray-900 hover:bg-gray-800 text-white'
+                  : 'border border-gray-300 bg-white text-gray-900 hover:bg-gray-50'
                   }`}>
                   Get Started
                   <ArrowRight className="ml-2 h-3 w-3" />

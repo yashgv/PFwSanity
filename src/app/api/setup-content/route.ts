@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { createClient } from "next-sanity";
 import { apiVersion, dataset, projectId, useCdn } from "@/sanity/env";
+import path from "path";
+import fs from "fs";
 import { siteConfig, navigation } from "@/lib/constants/config";
 import { homeContent } from "@/lib/constants/pages/home";
 import { aboutContent } from "@/lib/constants/pages/about";
@@ -21,12 +23,11 @@ export async function GET() {
         projectId,
         dataset,
         apiVersion,
-        useCdn: false,
+        useCdn,
         token,
     });
 
-    const path = require('path');
-    const fs = require('fs');
+
 
     // Helper to upload image
     const uploadImage = async (imagePath: string) => {
@@ -128,7 +129,7 @@ export async function GET() {
         await client.delete({ query: '*[_type == "experience"]' });
         await client.delete({ query: '*[_type == "achievement"]' });
 
-        servicesContent.services.forEach((service, i) => {
+        servicesContent.services.forEach((service) => {
             transaction.create({
                 _type: 'service',
                 title: service.title,
@@ -140,7 +141,7 @@ export async function GET() {
         });
 
         // 6. Projects
-        projectsContent.projects.forEach((project, i) => {
+        projectsContent.projects.forEach((project) => {
             transaction.create({
                 _type: 'project',
                 title: project.title,

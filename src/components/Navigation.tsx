@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { urlFor as urlForImage } from '@/sanity/lib/image'
+import Image from 'next/image'
 
 interface NavItem {
   title: string
@@ -11,6 +12,7 @@ interface NavItem {
 }
 
 interface NavigationProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   logo?: any // Sanity Image type
   navItems?: NavItem[]
 }
@@ -32,7 +34,7 @@ export default function Navigation({ logo, navItems = [] }: NavigationProps) {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
           <Link key={"logo"} href="/" className="w-fit">
-            <img src={logoSrc} alt="Logo" className="w-8 h-8 rounded-full object-cover" />
+            <Image src={logoSrc} alt="Logo" width={32} height={32} className="w-8 h-8 rounded-full object-cover" />
           </Link>
           {navigationItems.map((item) => (
             <Link
@@ -51,7 +53,7 @@ export default function Navigation({ logo, navItems = [] }: NavigationProps) {
         {/* Mobile Navigation */}
         <div className="md:hidden flex items-center justify-between w-full">
           <Link href="/" className="font-bold text-xl text-gray-900">
-            <img src={logoSrc} alt="Logo" className="w-8 h-8 rounded-full object-cover" />
+            <Image src={logoSrc} alt="Logo" width={32} height={32} className="w-8 h-8 rounded-full object-cover" />
           </Link>
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}

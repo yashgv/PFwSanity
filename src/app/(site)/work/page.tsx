@@ -5,6 +5,18 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Github } from "lucide-react"
 import Link from 'next/link'
+import Image from 'next/image'
+
+interface ProjectItem {
+  title: string
+  category: string
+  description: string
+  technologies: string[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  image?: any
+  link?: string
+  githubLink?: string
+}
 
 export default async function WorkPage() {
   const projects = await client.fetch(workQuery)
@@ -22,15 +34,15 @@ export default async function WorkPage() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {projects?.map((project: any, i: number) => (
-            // eslint-disable-next-line react/jsx-key
+          {projects?.map((project: ProjectItem, i: number) => (
             <div key={i} className="bg-gray-50 border border-gray-200 rounded-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 flex flex-col h-full">
               {project.image && (
-                <div className="w-full h-48 overflow-hidden">
-                  <img
+                <div className="w-full h-48 overflow-hidden relative">
+                  <Image
                     src={urlForImage(project.image).url()}
                     alt={project.title}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
               )}

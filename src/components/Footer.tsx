@@ -8,7 +8,7 @@ interface FooterProps {
   }
 }
 
-export default function Footer({ footerText, socialLinks }: FooterProps) {
+export default function Footer({ footerText }: FooterProps) {
   return (
     <footer className="bg-white border-t border-gray-200 py-16 px-6 mt-20">
       <div className="container mx-auto max-w-5xl">

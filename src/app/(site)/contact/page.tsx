@@ -1,7 +1,7 @@
 import { client } from "@/sanity/lib/client"
 import { contactQuery, siteSettingsQuery } from "@/sanity/lib/queries"
 import { Button } from "@/components/ui/button"
-import { Mail, Calendar, Github, Linkedin, Twitter, MessageSquare } from "lucide-react"
+import { Mail, Calendar, Github, Linkedin, Twitter } from "lucide-react"
 import Link from "next/link"
 
 export default async function ContactPage() {

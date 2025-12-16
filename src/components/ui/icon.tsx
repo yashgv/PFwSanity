@@ -6,7 +6,7 @@ interface IconProps {
 }
 
 const Icon = ({ name, className }: IconProps) => {
-    // @ts-ignore
+    // @ts-expect-error: icons is not strictly typed as Record<string, Icon>
     const LucideIcon = icons[name];
 
     if (!LucideIcon) {

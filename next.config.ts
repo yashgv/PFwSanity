@@ -9,7 +9,8 @@ const nextConfig: NextConfig = {
         hostname: 'cdn.sanity.io',
       }
     ]
-  }
+  },
+  serverExternalPackages: ['jsdom', 'isomorphic-dompurify']
 };
 
 export default nextConfig;

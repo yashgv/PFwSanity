@@ -5,6 +5,12 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Icon from "@/components/ui/icon"
 
+interface ServiceItem {
+  title: string
+  description: string
+  icon?: string
+}
+
 export default async function AboutPage() {
   const aboutData = await client.fetch(aboutQuery);
   const servicesData = await client.fetch(servicesQuery);
@@ -33,7 +39,7 @@ export default async function AboutPage() {
           </div>
 
           <div className="space-y-6">
-            {servicesData?.slice(0, 2).map((service: any, i: number) => (
+            {servicesData?.slice(0, 2).map((service: ServiceItem, i: number) => (
               <div key={i} className="bg-gray-50 border border-gray-200 rounded-xl p-6">
                 <div className="flex items-start space-x-4">
                   <div className="bg-gray-900 p-3 rounded-lg">

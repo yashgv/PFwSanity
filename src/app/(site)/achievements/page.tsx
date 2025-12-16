@@ -5,10 +5,19 @@ import { Award, Trophy, Medal, Star } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { AdaptiveImage } from "@/components/ui/adaptive-image"
 
+interface AchievementItem {
+  title: string
+  category: string
+  description: string
+  date: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  image?: any
+}
+
 export default async function AchievementsPage() {
   const allAchievements = await client.fetch(achievementsQuery);
 
-  const publications = allAchievements?.filter((item: any) => item.category === 'publication');
+  const publications = allAchievements?.filter((item: AchievementItem) => item.category === 'publication');
 
   const categories = ['hackathon', 'academic', 'leadership', 'other'];
   const categoryTitles: Record<string, string> = {
@@ -21,7 +30,7 @@ export default async function AchievementsPage() {
   const groupedAchievements = categories.map(cat => ({
     key: cat,
     title: categoryTitles[cat],
-    items: allAchievements?.filter((item: any) => item.category === cat)
+    items: allAchievements?.filter((item: AchievementItem) => item.category === cat)
   })).filter(group => group.items?.length > 0);
 
 
@@ -51,7 +60,7 @@ export default async function AchievementsPage() {
           <div className="mt-24">
             <h2 className="text-3xl font-bold text-gray-900 mb-8 tracking-tight">Publications & Copyrights</h2>
             <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
-              {publications.map((pub: any, i: number) => {
+              {publications.map((pub: AchievementItem, i: number) => {
                 const isFirstPublication = i === 0
 
                 return (
@@ -102,7 +111,7 @@ export default async function AchievementsPage() {
               <h2 className="text-3xl font-bold text-gray-900 mb-8 tracking-tight">{section.title}</h2>
               {/* Masonry layout using columns */}
               <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
-                {section.items.map((item: any, j: number) => {
+                {section.items.map((item: AchievementItem, j: number) => {
                   const Icon = getIcon(item.category)
                   const isMainWinner = item.title.toLowerCase().includes('winner') || item.title.toLowerCase().includes('1st')
 
